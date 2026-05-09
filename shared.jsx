@@ -333,7 +333,7 @@ const FS = {
   ctaPerson:  { flexShrink:0, display:'flex', alignItems:'flex-end', height:'260px' },
   personImg:  { height:'100%', width:'auto', objectFit:'contain', objectPosition:'bottom', filter:'drop-shadow(-4px 0 20px rgba(0,0,0,0.4))' },
   /* ── Glass card ── */
-  cardWrap:   { padding:'32px 32px 48px', maxWidth:'80rem', margin:'0 auto', width:'100%', boxSizing:'border-box' },
+  cardWrap:   { padding:'0 32px 48px', maxWidth:'80rem', margin:'0 auto', width:'100%', boxSizing:'border-box' },
   card:       { width:'100%', borderRadius:'1.5rem', padding:'2.5rem', color:'rgba(255,255,255,0.7)', boxSizing:'border-box' },
   topGrid:    { display:'grid', gridTemplateColumns:'minmax(0,5fr) minmax(0,7fr)', gap:'3rem', marginBottom:'2.5rem' },
   brand:      { display:'flex', flexDirection:'column', gap:'1rem' },

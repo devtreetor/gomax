@@ -745,7 +745,7 @@ function GlobalPresenceSection() {
   return (
     <section style={{ background:'var(--bg)', padding:'6rem 0', overflow:'hidden' }} ref={ref}>
       <div className="section-wrap">
-        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'2rem', alignItems:'center' }}>
+        <div style={{ display:'grid', gridTemplateColumns:'minmax(0, 3.5fr) minmax(0, 6.5fr)', gap:'4rem', alignItems:'center' }}>
 
           {/* ── Left: text + stats ── */}
           <div className={`fade-up${vis?' vis':''}`}>
