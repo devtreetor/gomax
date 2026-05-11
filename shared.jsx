@@ -390,7 +390,7 @@ function Footer({ navigate }) {
             {/* Top: brand + links */}
             <div style={FS.topGrid}>
               <div style={FS.brand}>
-                <img src="/Logo/Dark background.png" alt="GoMax Industries" style={{ height:'40px', width:'auto', objectFit:'contain', display:'block' }} />
+                <img src="/Logo/IMG-20260511-WA0017.jpg" alt="GoMax Industries" style={{ height:'40px', width:'auto', objectFit:'contain', display:'block' }} />
                 <p style={{ fontSize:'0.875rem', lineHeight:1.65, maxWidth:'22rem', color:'rgba(255,255,255,0.6)', margin:0 }}>
                   GoMax Industries delivers premium construction chemicals for building excellence — engineered in Karnal, Haryana and trusted across India.
                 </p>
