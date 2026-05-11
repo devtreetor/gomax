@@ -23,9 +23,9 @@ function ProductsPage({ navigate }) {
               <button key={v} className={`filter-tab${filter===v?' active':''}`} onClick={() => setFilter(v)}>{l}</button>
             ))}
           </div>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'1.5rem', alignItems:'stretch' }}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:'1.25rem' }}>
             {filtered.map((p, i) => (
-              <div key={p.id} className={`fade-up${vis?' vis':''}`} style={{ transitionDelay:`${i*0.07}s`, height:'100%' }}>
+              <div key={p.id} className={`fade-up${vis?' vis':''}`} style={{ transitionDelay:`${i*0.07}s` }}>
                 <ProductCard p={p} onClick={() => navigate('product-detail', p)} />
               </div>
             ))}
@@ -86,7 +86,7 @@ function ProductDetailPage({ product, navigate }) {
               {product.en !== '—' && (
                 <div className="mono" style={{ fontSize:'1rem', color:'var(--orange)', letterSpacing:'0.1em', marginBottom:'0.75rem', fontWeight:500 }}>EN {product.en}</div>
               )}
-              <h1 className="bebas" style={{ fontSize:'clamp(2.5rem,5vw,4rem)', color:'white', letterSpacing:'0.03em', lineHeight:1, marginBottom:'1.25rem' }}>{product.name}</h1>
+              <h1 style={{ fontFamily:'var(--font-body)', fontWeight:800, fontSize:'clamp(2.5rem,5vw,4.5rem)', color:'white', letterSpacing:'-0.01em', lineHeight:1.05, marginBottom:'1.25rem', textTransform:'uppercase' }}>{product.name}</h1>
               <p style={{ color:'rgba(255,255,255,0.65)', lineHeight:1.75, marginBottom:'2rem', fontSize:'0.95rem' }}>{product.fullDesc}</p>
               <div style={{ border:'1px solid rgba(255,255,255,0.1)', marginBottom:'2rem' }}>
                 {Object.entries(product.specs).map(([k,v]) => (
@@ -142,7 +142,7 @@ function ProductDetailPage({ product, navigate }) {
           <div style={{ marginTop:'4rem' }}>
             <span className="overline">Also Consider</span>
             <h3 style={{ fontWeight:700, color:'var(--navy)', fontSize:'1.35rem', marginBottom:'2rem' }}>Related Products</h3>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'1.5rem', alignItems:'stretch' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:'1.5rem', alignItems:'stretch' }}>
               {allRelated.map(p => (
                 <ProductCard key={p.id} p={p} onClick={() => navigate('product-detail', p)} />
               ))}
