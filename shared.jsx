@@ -481,7 +481,7 @@ function Nav({ currentPage, navigate }) {
         <div className="nav-inner">
           <a href="#" className="nav-logo" onClick={e => { e.preventDefault(); go('home'); }}>
             <img
-              src={scrolled ? '/Logo/Light background.png' : '/Logo/Dark background.png'}
+              src="/Logo/Dark background.png"
               alt="GoMax Industries"
               style={{ height: '36px', width: 'auto', display: 'block', objectFit: 'contain' }}
             />
