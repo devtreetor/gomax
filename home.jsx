@@ -1,5 +1,6 @@
 // ─── HOME PAGE ────────────────────────────────────────────────────────────────
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PRODUCTS, REVIEWS } from './data.jsx';
 import { useScrollObserver, ProductCard, CTABand } from './shared.jsx';
 import { WorldMap } from './world-map.jsx';
@@ -210,13 +211,14 @@ const CARDS_VISIBLE = 3;
 function SolutionProductCard({ p, onClick, animClass, animDelay }) {
   const tag = classTag(p.specs?.standard);
   return (
-    <div
+    <motion.div
       onClick={onClick}
       className={animClass}
+      whileHover="hover"
       style={{
         flex:'1 1 0', minWidth:0, maxWidth:'calc(33.33% - 1rem)',
         position:'relative',
-        width:'100%', aspectRatio:'3/4',
+        width:'100%', aspectRatio:'1 / 0.85',
         cursor:'pointer',
         overflow:'visible',
         transitionDelay: animDelay,
@@ -228,28 +230,35 @@ function SolutionProductCard({ p, onClick, animClass, animDelay }) {
         top:0, left:0, right:0, bottom:0,
         background:'#f3ede2',
         borderRadius:'24px',
+        transition: 'background 0.3s ease',
       }} />
 
       {/* Image container — bleeds above card via negative top */}
-      <div style={{
-        position:'absolute',
-        top:'-10%', left:0, right:0,
-        height:'75%',
-        display:'flex', alignItems:'center', justifyContent:'center',
-        zIndex:2,
-        pointerEvents:'none',
-      }}>
+      <motion.div 
+        variants={{
+          hover: { y: -8, scale: 1.03 }
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+        style={{
+          position:'absolute',
+          top:'-45%', left:'5%', right:'5%',
+          height:'125%',
+          display:'flex', alignItems:'center', justifyContent:'center',
+          zIndex:2,
+          pointerEvents:'none',
+        }}
+      >
         <img
           src={p.cutout}
           alt={p.name}
           style={{
-            height:'100%', width:'auto',
+            width:'100%', height:'100%',
             objectFit:'contain',
-            filter:'drop-shadow(0 14px 28px rgba(13,27,42,.22))',
+            filter:'drop-shadow(0 25px 45px rgba(13,27,42,.28))',
             mixBlendMode:'multiply',
           }}
         />
-      </div>
+      </motion.div>
 
       {/* Badge + name — bottom left, inside card */}
       <div style={{
@@ -279,7 +288,7 @@ function SolutionProductCard({ p, onClick, animClass, animDelay }) {
           {p.name}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -297,7 +306,7 @@ function SolutionsSection({ navigate }) {
   const visible = catProds.slice(cardStart, cardStart + CARDS_VISIBLE);
 
   return (
-    <section style={{ background:'var(--bg)', padding:'6rem 0 7rem' }} ref={ref}>
+    <section style={{ background:'var(--bg)', padding:'8rem 0 10rem' }} ref={ref}>
       <div className="section-wrap">
 
         {/* ── Header: eyebrow + headline ── */}
@@ -309,12 +318,19 @@ function SolutionsSection({ navigate }) {
         </div>
 
         {/* ── Dock nav ── */}
-        <div className={`fade-up${vis?' vis':''}`} style={{ transitionDelay:'.1s', marginBottom:'4rem', display:'flex', justifyContent:'center' }}>
+        <div className={`fade-up${vis?' vis':''}`} style={{ 
+          transitionDelay:'.1s', 
+          marginBottom:'12rem', 
+          display:'flex', 
+          justifyContent:'center',
+          position:'relative',
+          zIndex:10 
+        }}>
           <nav style={{
             display:'inline-flex', alignItems:'stretch', gap:'0', padding:'5px',
             borderRadius:'16px', background:'white',
             border:'1px solid rgba(13,27,42,.08)',
-            boxShadow:'0 14px 40px -16px rgba(13,27,42,.18)',
+            boxShadow:'0 20px 50px -15px rgba(13,27,42,.22)',
             width:'fit-content', margin:'0 auto',
           }}>
             {SOLVE_CATS.map((c, i) => {

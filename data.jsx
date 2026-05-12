@@ -28,8 +28,8 @@ export const PRODUCTS = [
   {
     id: 9, slug: "pure-set-is100", name: "PURE SET IS 100",
     cat: "tile-adhesive", catLabel: "Tile Adhesive", en: "C2 T",
-    cutout: "/products/pure-set-is100.jpeg",
-    image: "/products/pure-set-is100.jpeg",
+    cutout: "/products/pure-set-p40.png",
+    image: "/products/pure-set-p40.png",
     desc: "IS 15477-classified polymer-modified adhesive engineered for Indian climate conditions and diverse substrates.",
     fullDesc: "PURE SET IS 100 is a polymer-modified, cement-based tile adhesive classified to IS 15477 — the Indian Standard for tile adhesives. Formulated specifically for Indian climate conditions, it delivers reliable bond strength on a wide range of substrates including concrete, brick, plaster and existing tiles across residential and commercial projects.",
     features: ["IS 15477 classified — meets Indian Standard","Polymer-modified for enhanced bond strength","Suitable for Indian climate — humidity and heat resistant","Works on concrete, brick, plaster and existing tiles","Non-slip on vertical surfaces","Extended working time for large area installations"],

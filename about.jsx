@@ -516,11 +516,9 @@ function AboutPage({ navigate }) {
                 {' '}
                 <span
                   style={{
-                    fontFamily: 'var(--font-body)',
-                    fontStyle: 'italic',
-                    fontWeight: 400,
-                    fontSize: 'clamp(1.4rem,3.1vw,3.2rem)',
+                    fontFamily: 'var(--font-display)',
                     color: 'rgba(255,255,255,0.45)',
+                    letterSpacing: '0.02em'
                   }}
                 >
                   <WordsPullUp text="a precision" baseDelay={0.85} />
@@ -528,11 +526,9 @@ function AboutPage({ navigate }) {
                 <br />
                 <span
                   style={{
-                    fontFamily: 'var(--font-body)',
-                    fontStyle: 'italic',
-                    fontWeight: 400,
-                    fontSize: 'clamp(1.4rem,3.1vw,3.2rem)',
+                    fontFamily: 'var(--font-display)',
                     color: 'rgba(255,255,255,0.45)',
+                    letterSpacing: '0.02em'
                   }}
                 >
                   <WordsPullUp text="manufacturer." baseDelay={1.0} />
