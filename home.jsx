@@ -600,78 +600,66 @@ function ProductsPreviewSection({ navigate }) {
 }
 
 // ── CLIENT LOGO STRIP ─────────────────────────────────────────────────────────
-const CLIENTS = [
-  { abbr: 'L&T',  name: 'L&T Construction' },
-  { abbr: 'TATA', name: 'Tata Projects' },
-  { abbr: 'DLF',  name: 'DLF Limited' },
-  { abbr: 'SP',   name: 'Shapoorji Pallonji' },
-  { abbr: 'GDJ',  name: 'Godrej Properties' },
-  { abbr: 'ORL',  name: 'Oberoi Realty' },
-  { abbr: 'PGP',  name: 'Prestige Group' },
-  { abbr: 'SBH',  name: 'Sobha Limited' },
-  { abbr: 'BRG',  name: 'Brigade Group' },
-  { abbr: 'MHD',  name: 'Mahindra Lifespace' },
+const CLIENT_LOGOS = [
+  '/clients/2.png',
+  '/clients/3.png',
+  '/clients/4.jpg',
+  '/clients/5.avif',
+  '/clients/6.png',
+  '/clients/VRC.png',
 ];
 
-function LogoCard({ c }) {
+function LogoCard({ src }) {
   const [hov, setHov] = useState(false);
   return (
     <div
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
-        width: '148px',
+        width: '180px',
         flexShrink: 0,
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1.6rem 1rem',
+        padding: '1.5rem',
         position: 'relative',
-        border: `1.5px solid ${hov ? 'var(--orange)' : 'transparent'}`,
-        transition: 'border-color 0.22s ease',
+        borderLeft: '1px solid var(--gray-light)',
+        background: 'white',
+        transition: 'all 0.3s ease',
         cursor: 'default',
       }}
     >
-      {/* Orange dot */}
+      <img 
+        src={src} 
+        alt="Client Logo" 
+        style={{ 
+          maxWidth: '100%', 
+          maxHeight: '52px', 
+          objectFit: 'contain',
+          filter: hov ? 'grayscale(0)' : 'grayscale(1)',
+          opacity: hov ? 1 : 0.45,
+          transition: 'all 0.3s ease',
+          transform: hov ? 'scale(1.05)' : 'scale(1)',
+        }} 
+      />
+      
+      {/* Subtle orange accent on hover */}
       <div style={{
         position: 'absolute',
-        top: '7px',
-        right: '7px',
-        width: '7px',
-        height: '7px',
-        borderRadius: '50%',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '2px',
         background: 'var(--orange)',
-        opacity: hov ? 1 : 0,
-        transform: hov ? 'scale(1)' : 'scale(0.3)',
-        transition: 'opacity 0.2s ease, transform 0.22s ease',
+        transform: hov ? 'scaleX(1)' : 'scaleX(0)',
+        transition: 'transform 0.3s ease',
       }} />
-
-      <div style={{
-        fontFamily: 'var(--font-display)',
-        fontSize: '1.45rem',
-        letterSpacing: '0.05em',
-        lineHeight: 1,
-        marginBottom: '0.35rem',
-        color: hov ? 'var(--navy)' : 'rgba(13,27,42,0.28)',
-        transition: 'color 0.22s ease',
-      }}>{c.abbr}</div>
-
-      <div style={{
-        fontFamily: 'var(--font-body)',
-        fontSize: '0.58rem',
-        color: hov ? 'var(--gray)' : 'rgba(107,114,128,0.38)',
-        letterSpacing: '0.01em',
-        textAlign: 'center',
-        transition: 'color 0.22s ease',
-        whiteSpace: 'nowrap',
-      }}>{c.name}</div>
     </div>
   );
 }
 
 function LogoStrip() {
-  const doubled = [...CLIENTS, ...CLIENTS];
+  const doubled = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS];
   return (
     <section style={{
       background: 'var(--bg)',
@@ -723,7 +711,7 @@ function LogoStrip() {
           }} />
 
           <div className="logo-strip-track">
-            {doubled.map((c, i) => <LogoCard key={i} c={c} />)}
+            {doubled.map((src, i) => <LogoCard key={i} src={src} />)}
           </div>
         </div>
       </div>

@@ -523,11 +523,27 @@ function AboutPage({ navigate }) {
                     color: 'rgba(255,255,255,0.45)',
                   }}
                 >
-                  <WordsPullUp text="a precision manufacturer." baseDelay={0.95} />
+                  <WordsPullUp text="a precision" baseDelay={0.85} />
+                </span>
+                <br />
+                <span
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontStyle: 'italic',
+                    fontWeight: 400,
+                    fontSize: 'clamp(1.4rem,3.1vw,3.2rem)',
+                    color: 'rgba(255,255,255,0.45)',
+                  }}
+                >
+                  <WordsPullUp text="manufacturer." baseDelay={1.0} />
                 </span>
                 {' '}
                 <span style={{ fontFamily: 'var(--font-display)', color: 'white', letterSpacing: '0.02em' }}>
-                  <WordsPullUp text="BRINGING GERMAN-STANDARD CHEMICALS TO INDIA." baseDelay={1.1} />
+                  <WordsPullUp text="BRINGING" baseDelay={1.1} />
+                </span>
+                <br />
+                <span style={{ fontFamily: 'var(--font-display)', color: 'white', letterSpacing: '0.02em' }}>
+                  <WordsPullUp text="GERMAN-STANDARD CHEMICALS TO INDIA." baseDelay={1.2} />
                 </span>
               </div>
 

@@ -336,7 +336,7 @@ const FS = {
   cardWrap:   { padding:'0 32px 48px', maxWidth:'80rem', margin:'0 auto', width:'100%', boxSizing:'border-box' },
   card:       { width:'100%', borderRadius:'1.5rem', padding:'2.5rem', color:'rgba(255,255,255,0.7)', boxSizing:'border-box' },
   topGrid:    { display:'grid', gridTemplateColumns:'minmax(0,5fr) minmax(0,7fr)', gap:'3rem', marginBottom:'2.5rem' },
-  brand:      { display:'flex', flexDirection:'column', gap:'1rem' },
+  brand:      { display:'flex', flexDirection:'column', gap:'1.2rem', alignItems:'flex-start' },
   linksGrid:  { display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'2rem' },
   colHead:    { fontSize:'0.72rem', textTransform:'uppercase', letterSpacing:'0.12em', color:'rgba(255,255,255,1)', fontWeight:600, marginBottom:'1rem', display:'block' },
   link:       { fontSize:'0.78rem', color:'rgba(255,255,255,0.6)', textDecoration:'none', display:'block', marginBottom:'0.5rem', transition:'color 0.2s' },
@@ -355,10 +355,8 @@ function Footer({ navigate }) {
 
   return (
     <section style={{ ...FS.section, minHeight:'620px' }}>
-      {/* Video background */}
-      <video autoPlay muted loop playsInline preload="auto" style={FS.video}>
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260429_114316_1c7889ad-2885-410e-b493-98119fee0ddb.mp4" type="video/mp4" />
-      </video>
+      {/* Footer background image */}
+      <img src="/Logo/IMG-20260511-WA0017.jpg" alt="" style={FS.video} />
       <div style={FS.overlay} />
 
       <div style={FS.inner}>
@@ -390,7 +388,7 @@ function Footer({ navigate }) {
             {/* Top: brand + links */}
             <div style={FS.topGrid}>
               <div style={FS.brand}>
-                <img src="/Logo/IMG-20260511-WA0017.jpg" alt="GoMax Industries" style={{ height:'40px', width:'auto', objectFit:'contain', display:'block' }} />
+                <img src="/Logo/Dark background.png" alt="GoMax Industries" style={{ height:'44px', width:'auto', objectFit:'contain', display:'block', marginLeft:'-8px' }} />
                 <p style={{ fontSize:'0.875rem', lineHeight:1.65, maxWidth:'22rem', color:'rgba(255,255,255,0.6)', margin:0 }}>
                   GoMax Industries delivers premium construction chemicals for building excellence — engineered in Karnal, Haryana and trusted across India.
                 </p>
