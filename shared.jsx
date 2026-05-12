@@ -18,6 +18,17 @@ function useScrollObserver(threshold = 0.12) {
   return [ref, vis];
 }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
+
 function useCountUp(target, duration = 1800, active = false) {
   const [val, setVal] = useState(0);
   useEffect(() => {
@@ -348,6 +359,7 @@ const FS = {
 };
 
 function Footer({ navigate }) {
+  const isMobile = useIsMobile();
   const hover = e => { e.currentTarget.style.color = 'white'; };
   const unhover = e => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; };
   const socialHover = e => { e.currentTarget.style.opacity = '1'; };
@@ -361,9 +373,15 @@ function Footer({ navigate }) {
 
       <div style={FS.inner}>
         {/* ── CTA ── */}
-        <div style={FS.ctaWrap}>
-            <div style={FS.ctaText}>
-              <h2 style={FS.ctaHeading}>READY TO BUILD SOMETHING<br />EXTRAORDINARY?</h2>
+        <div style={{
+          ...FS.ctaWrap,
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'center' : 'flex-end',
+          padding: isMobile ? '40px 20px 0' : FS.ctaWrap.padding,
+          textAlign: isMobile ? 'center' : 'left'
+        }}>
+            <div style={{ ...FS.ctaText, paddingBottom: isMobile ? '1rem' : '2rem' }}>
+              <h2 style={{ ...FS.ctaHeading, fontSize: isMobile ? '1.8rem' : FS.ctaHeading.fontSize }}>READY TO BUILD SOMETHING<br />EXTRAORDINARY?</h2>
               <p style={FS.ctaSub}>Get expert advice for your next construction project</p>
               <a href="tel:+919215844410" style={FS.ctaBtn}
                 onMouseOver={e => { e.currentTarget.style.background='#d4470f'; e.currentTarget.style.transform='translateY(-2px)'; }}
@@ -371,7 +389,7 @@ function Footer({ navigate }) {
                 Contact Us
               </a>
             </div>
-            <div style={FS.ctaPerson}>
+            <div style={{ ...FS.ctaPerson, height: isMobile ? '160px' : '260px' }}>
               <img src="/Tiku call back image.png" alt="Tiku Talsania" style={FS.personImg} />
             </div>
           </div>
@@ -383,10 +401,10 @@ function Footer({ navigate }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
             className="liquid-glass"
-            style={FS.card}
+            style={{ ...FS.card, padding: isMobile ? '1.5rem' : '2.5rem' }}
           >
             {/* Top: brand + links */}
-            <div style={FS.topGrid}>
+            <div style={{ ...FS.topGrid, gridTemplateColumns: isMobile ? '1fr' : FS.topGrid.gridTemplateColumns }}>
               <div style={FS.brand}>
                 <img src="/Logo/Dark background.png" alt="GoMax Industries" style={{ height:'44px', width:'auto', objectFit:'contain', display:'block', marginLeft:'-8px' }} />
                 <p style={{ fontSize:'0.875rem', lineHeight:1.65, maxWidth:'22rem', color:'rgba(255,255,255,0.6)', margin:0 }}>
@@ -394,7 +412,7 @@ function Footer({ navigate }) {
                 </p>
               </div>
 
-              <div style={FS.linksGrid}>
+              <div style={{ ...FS.linksGrid, gridTemplateColumns: isMobile ? '1fr 1fr' : FS.linksGrid.gridTemplateColumns, gap: isMobile ? '1.5rem' : '2rem' }}>
                 <div>
                   <span style={FS.colHead}>Products</span>
                   {PRODUCTS.map(p => (
@@ -538,4 +556,4 @@ function Nav({ currentPage, navigate }) {
   );
 }
 
-export { useScrollObserver, useCountUp, Cursor, ScrollBar, SectionHead, FloatingWA, PageHero, ProductCard, CTABand, Footer, Nav };
+export { useScrollObserver, useCountUp, useIsMobile, Cursor, ScrollBar, SectionHead, FloatingWA, PageHero, ProductCard, CTABand, Footer, Nav };

@@ -179,7 +179,6 @@ function HeroImageCard() {
 function FeatureCard({ icon: Icon, num, title, items, delay }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [hov, setHov] = useState(false);
 
   return (
     <motion.div
@@ -256,29 +255,6 @@ function FeatureCard({ icon: Icon, num, title, items, delay }) {
         </ul>
       </div>
 
-      <div style={{ paddingTop: '0.875rem', borderTop: '1px solid rgba(13,27,42,0.08)' }}>
-        <button
-          onMouseEnter={() => setHov(true)}
-          onMouseLeave={() => setHov(false)}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: hov ? '8px' : '4px',
-            transition: 'gap 0.2s',
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.78rem',
-            color: hov ? 'var(--orange)' : 'rgba(232,82,26,0.7)',
-            fontWeight: 600,
-            padding: 0,
-          }}
-        >
-          Learn more
-          <ArrowRight size={12} style={{ transform: 'rotate(-45deg)' }} />
-        </button>
-      </div>
     </motion.div>
   );
 }

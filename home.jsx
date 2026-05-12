@@ -2,13 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PRODUCTS, REVIEWS } from './data.jsx';
-import { useScrollObserver, ProductCard, CTABand } from './shared.jsx';
+import { useScrollObserver, useIsMobile, ProductCard, CTABand } from './shared.jsx';
 import { WorldMap } from './world-map.jsx';
 
 // ── SCROLL-EXPANSION HERO ─────────────────────────────────────────────────────
 // Inspired by: https://21st.dev/r/arunachalam0606/scroll-expansion-hero
 // Scroll hijacks page until card fully expands; title halves slide apart.
 function HeroSection({ navigate }) {
+  const isMobile = useIsMobile();
   const [prog, setProg] = useState(0);      // 0 → 1: expansion progress
   const [showContent, setShowContent] = useState(false);
   const progRef = useRef(0);
@@ -68,10 +69,9 @@ function HeroSection({ navigate }) {
     };
   }, []);
 
-  const mob = window.innerWidth < 768;
-  const cardW  = 300 + prog * (mob ? 620  : 1250);
-  const cardH  = 400 + prog * (mob ? 180  : 380);
-  const slide  = prog * (mob ? 32   : 42);   // vw units
+  const cardW  = 300 + prog * (isMobile ? 320  : 1250);
+  const cardH  = 400 + prog * (isMobile ? 120  : 380);
+  const slide  = prog * (isMobile ? 24   : 42);   // vw units
   const textAlpha = Math.max(0, 1 - prog * 1.8);
   const hintAlpha = Math.max(0, 1 - prog * 5);
   const bgAlpha   = Math.max(0, 1 - prog * 1.4);
@@ -149,14 +149,14 @@ function HeroSection({ navigate }) {
             <div style={{
               transform:`translateX(-${slide}vw)`,
               fontFamily:'var(--font-display)',
-              fontSize:'clamp(2.2rem,5.5vw,6.5rem)',
+              fontSize: isMobile ? 'clamp(1.6rem, 5vw, 2.5rem)' : 'clamp(2.2rem,5.5vw,6.5rem)',
               color:'white', letterSpacing:'0.03em', lineHeight:1,
               opacity:textAlpha,
             }}>WHERE IMAGINATION</div>
             <div style={{
               transform:`translateX(${slide}vw)`,
               fontFamily:'var(--font-display)',
-              fontSize:'clamp(2.2rem,5.5vw,6.5rem)',
+              fontSize: isMobile ? 'clamp(1.6rem, 5vw, 2.5rem)' : 'clamp(2.2rem,5.5vw,6.5rem)',
               color:'var(--orange)', letterSpacing:'0.03em', lineHeight:1,
               opacity:textAlpha,
             }}>MEETS ENGINEERING EXCELLENCE.</div>
@@ -216,9 +216,10 @@ function SolutionProductCard({ p, onClick, animClass, animDelay }) {
       className={animClass}
       whileHover="hover"
       style={{
-        flex:'1 1 0', minWidth:0, maxWidth:'calc(33.33% - 1rem)',
+        flex:'1 1 0', minWidth:0, 
+        maxWidth: animClass.includes('mobile') ? '100%' : 'calc(33.33% - 1rem)',
         position:'relative',
-        width:'100%', aspectRatio:'1 / 0.85',
+        width:'100%', aspectRatio:'1 / 0.68',
         cursor:'pointer',
         overflow:'visible',
         transitionDelay: animDelay,
@@ -227,7 +228,7 @@ function SolutionProductCard({ p, onClick, animClass, animDelay }) {
       {/* Card background — full card, top: 0 */}
       <div style={{
         position:'absolute',
-        top:0, left:0, right:0, bottom:0,
+        top:'17%', left:0, right:0, bottom:0,
         background:'#f3ede2',
         borderRadius:'24px',
         transition: 'background 0.3s ease',
@@ -267,7 +268,7 @@ function SolutionProductCard({ p, onClick, animClass, animDelay }) {
         padding:'0 1.2rem 1.2rem',
         zIndex:2,
         display:'flex', flexDirection:'column',
-        alignItems:'flex-start', gap:'8px',
+        alignItems:'center', gap:'8px',
       }}>
         {tag && (
           <div style={{
@@ -293,9 +294,12 @@ function SolutionProductCard({ p, onClick, animClass, animDelay }) {
 }
 
 function SolutionsSection({ navigate }) {
+  const isMobile = useIsMobile();
   const [catIx, setCatIx] = useState(0);
   const [cardStart, setCardStart] = useState(0);
   const [ref, vis] = useScrollObserver(0.05);
+
+  const CARDS_VISIBLE = isMobile ? 1 : 3;
 
   const cat = SOLVE_CATS[catIx];
   const catProds = cat.productIds.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
@@ -306,13 +310,13 @@ function SolutionsSection({ navigate }) {
   const visible = catProds.slice(cardStart, cardStart + CARDS_VISIBLE);
 
   return (
-    <section style={{ background:'var(--bg)', padding:'8rem 0 10rem' }} ref={ref}>
+    <section style={{ background:'var(--bg)', padding: isMobile ? '4rem 0 5rem' : '8rem 0 10rem' }} ref={ref}>
       <div className="section-wrap">
 
         {/* ── Header: eyebrow + headline ── */}
         <div className={`fade-up${vis?' vis':''}`} style={{ textAlign:'center', marginBottom:'3rem' }}>
           <span className="overline">What We Solve</span>
-          <h2 className={`section-h2 title-line${vis?' vis':''}`} style={{ color:'var(--navy)', fontSize:'clamp(2.8rem,5vw,5rem)', letterSpacing:'.02em', display:'block' }}>
+          <h2 className={`section-h2${vis?' vis':''}`} style={{ color:'var(--navy)', fontSize:'clamp(2.8rem,5vw,5rem)', letterSpacing:'.02em', display:'block' }}>
             The Right Solution For Every <span style={{ color:'var(--orange)' }}>Building</span> Challenge
           </h2>
         </div>
@@ -320,18 +324,23 @@ function SolutionsSection({ navigate }) {
         {/* ── Dock nav ── */}
         <div className={`fade-up${vis?' vis':''}`} style={{ 
           transitionDelay:'.1s', 
-          marginBottom:'12rem', 
+          marginBottom: isMobile ? '7rem' : '12rem', 
           display:'flex', 
-          justifyContent:'center',
+          justifyContent: isMobile ? 'flex-start' : 'center',
           position:'relative',
-          zIndex:10 
+          zIndex:10,
+          overflowX: isMobile ? 'auto' : 'visible',
+          paddingBottom: isMobile ? '1rem' : '0',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
         }}>
           <nav style={{
             display:'inline-flex', alignItems:'stretch', gap:'0', padding:'5px',
             borderRadius:'16px', background:'white',
             border:'1px solid rgba(13,27,42,.08)',
             boxShadow:'0 20px 50px -15px rgba(13,27,42,.22)',
-            width:'fit-content', margin:'0 auto',
+            width:'fit-content', margin: isMobile ? '0 1.5rem' : '0 auto',
+            flexShrink: 0,
           }}>
             {SOLVE_CATS.map((c, i) => {
               const active = i === catIx;
@@ -385,7 +394,7 @@ function SolutionsSection({ navigate }) {
                   key={p.id}
                   p={p}
                   onClick={() => navigate('product-detail', p)}
-                  animClass={`fade-up${vis?' vis':''}`}
+                  animClass={`fade-up${vis?' vis':''}${isMobile ? ' mobile' : ''}`}
                   animDelay={`${0.1 + i * 0.08}s`}
                 />
               ))}
@@ -517,6 +526,7 @@ const CERTS = [
 ];
 
 function StandardsBand() {
+  const isMobile = useIsMobile();
   const [ref, vis] = useScrollObserver(0.15);
   return (
     <section
@@ -528,7 +538,7 @@ function StandardsBand() {
       <div aria-hidden="true" style={{ position:'absolute', inset:0, background:'linear-gradient(to right, rgba(4,8,24,0.82) 0%, rgba(4,8,24,0.72) 45%, rgba(4,8,24,0.18) 100%)', pointerEvents:'none' }} />
       <div aria-hidden="true" style={{ position:'absolute', top:0, left:0, right:0, height:'2px', background:'linear-gradient(to right, transparent, var(--orange) 30%, var(--orange) 70%, transparent)' }} />
 
-      <div style={{ maxWidth:'1400px', margin:'0 auto', padding:'5rem 2.5rem', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'4rem', alignItems:'center' }}>
+      <div style={{ maxWidth:'1400px', margin:'0 auto', padding: isMobile ? '4rem 1.5rem' : '5rem 2.5rem', display:'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '2rem' : '4rem', alignItems:'center' }}>
 
         {/* ── Left: heading + stacked cert rows ── */}
         <div className={`fade-left${vis?' vis':''}`} style={{ position:'relative', zIndex:1 }}>
@@ -591,6 +601,7 @@ function StandardsBand() {
 
 // ── PRODUCTS PREVIEW ──────────────────────────────────────────────────────────
 function ProductsPreviewSection({ navigate }) {
+  const isMobile = useIsMobile();
   const [ref, vis] = useScrollObserver(0.05);
   const preview = PRODUCTS.slice(0, 6);
   return (
@@ -603,7 +614,7 @@ function ProductsPreviewSection({ navigate }) {
           </div>
           <button className={`btn btn-ghost-navy fade-up${vis?' vis':''}`} style={{ transitionDelay:'0.2s' }} onClick={() => navigate('products')}>View All 8 Products →</button>
         </div>
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'1.5rem' }}>
+        <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap:'1.5rem' }}>
           {preview.map((p,i) => (
             <div key={p.id} className={`fade-up${vis?' vis':''}`} style={{ transitionDelay:`${i*0.08}s` }}>
               <ProductCard p={p} onClick={() => navigate('product-detail', p)} />
@@ -675,6 +686,7 @@ function LogoCard({ src }) {
 }
 
 function LogoStrip() {
+  const isMobile = useIsMobile();
   const doubled = [...CLIENT_LOGOS, ...CLIENT_LOGOS, ...CLIENT_LOGOS];
   return (
     <section style={{
@@ -685,8 +697,9 @@ function LogoStrip() {
       <div style={{
         maxWidth: '1400px',
         margin: '0 auto',
-        padding: '0 2.5rem',
+        padding: isMobile ? '0 1rem' : '0 2.5rem',
         display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
         alignItems: 'stretch',
         overflow: 'hidden',
       }}>
@@ -695,10 +708,10 @@ function LogoStrip() {
           flexShrink: 0,
           display: 'flex',
           alignItems: 'center',
-          paddingTop: '1.5rem',
-          paddingBottom: '1.5rem',
-          paddingRight: '2.5rem',
-          borderRight: '1px solid var(--gray-light)',
+          paddingTop: isMobile ? '1rem' : '1.5rem',
+          paddingBottom: isMobile ? '0.5rem' : '1.5rem',
+          paddingRight: isMobile ? '0' : '2.5rem',
+          borderRight: isMobile ? 'none' : '1px solid var(--gray-light)',
           background: 'var(--bg)',
           position: 'relative',
           zIndex: 2,
@@ -711,7 +724,8 @@ function LogoStrip() {
             letterSpacing: '0.15em',
             textTransform: 'uppercase',
             lineHeight: 1.6,
-            width: '100px',
+            width: isMobile ? '100%' : '100px',
+            textAlign: isMobile ? 'center' : 'left',
           }}>
             Our Prestigious Clients
           </p>
@@ -738,6 +752,7 @@ function LogoStrip() {
 // ── GLOBAL PRESENCE ───────────────────────────────────────────────────────────
 
 function GlobalPresenceSection() {
+  const isMobile = useIsMobile();
   const [ref, vis] = useScrollObserver(0.08);
   const STATS = [
     { num:'15+', label:'STATES SERVED' },
@@ -747,9 +762,9 @@ function GlobalPresenceSection() {
   ];
 
   return (
-    <section style={{ background:'var(--bg)', padding:'6rem 0', overflow:'hidden' }} ref={ref}>
+    <section style={{ background:'var(--bg)', padding: isMobile ? '4rem 0' : '6rem 0', overflow:'hidden' }} ref={ref}>
       <div className="section-wrap">
-        <div style={{ display:'grid', gridTemplateColumns:'minmax(0, 3.5fr) minmax(0, 6.5fr)', gap:'4rem', alignItems:'center' }}>
+        <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 3.5fr) minmax(0, 6.5fr)', gap: isMobile ? '2rem' : '4rem', alignItems:'center' }}>
 
           {/* ── Left: text + stats ── */}
           <div className={`fade-up${vis?' vis':''}`}>
