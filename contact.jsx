@@ -1,7 +1,7 @@
 // ─── CONTACT PAGE ─────────────────────────────────────────────────────────────
 import React, { useState } from 'react';
 import { PRODUCTS } from './data.jsx';
-import { useScrollObserver } from './shared.jsx';
+import { useScrollObserver, useIsMobile } from './shared.jsx';
 
 const INP = {
   width: '100%', padding: '0.875rem 1rem',
@@ -73,6 +73,7 @@ function ContactPage() {
   const [form, setForm] = useState({ name:'', phone:'', email:'', city:'', product:'', message:'' });
   const [sent, setSent] = useState(false);
   const [ref, vis] = useScrollObserver(0.05);
+  const isMobile = useIsMobile();
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
   const submit = (e) => { e.preventDefault(); setSent(true); };
@@ -81,21 +82,31 @@ function ContactPage() {
     <div style={{ background: 'var(--bg)', paddingTop: '7rem', paddingBottom: '5rem' }}>
       <div className="section-wrap" ref={ref}>
 
+        {/* ── Heading above the layout ── */}
+        <div className={`fade-up${vis ? ' vis' : ''}`} style={{ marginBottom: '1.25rem' }}>
+          <h2 className="bebas" style={{
+            color: 'var(--navy)', fontSize: 'clamp(1.8rem, 2.8vw, 2.5rem)',
+            letterSpacing: '0.04em', lineHeight: 1, marginBottom: '0.55rem',
+          }}>LET'S START A CONVERSATION</h2>
+          <div style={{ width: 48, height: 3, background: 'var(--orange)' }} />
+        </div>
+
         {/* ── Hero: overlapping layout ── */}
-        <div style={{ display: 'flex', alignItems: 'stretch', marginBottom: '5rem' }}>
+        <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'stretch' : 'center', marginBottom: isMobile ? '3rem' : '5rem' }}>
 
           {/* Navy info card — overlaps the form card via negative right margin */}
           <div
             className={`fade-up${vis ? ' vis' : ''}`}
             style={{
               flexShrink: 0,
-              width: '43%',
+              width: isMobile ? '100%' : '43%',
               background: 'var(--navy)',
               borderRadius: '16px',
-              padding: '3rem 3rem 3rem 3rem',
+              padding: isMobile ? '2rem 1.5rem' : '2rem 3rem',
               position: 'relative',
               zIndex: 2,
-              marginRight: '-4.5rem',
+              marginRight: isMobile ? 0 : '-4.5rem',
+              marginBottom: isMobile ? '1.5rem' : 0,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -136,25 +147,16 @@ function ContactPage() {
             ))}
           </div>
 
-          {/* Form area — heading + white card. Left padding clears the navy card overlap */}
+          {/* Form area */}
           <div
             className={`fade-up${vis ? ' vis' : ''}`}
             style={{ flex: 1, display: 'flex', flexDirection: 'column', transitionDelay: '0.1s', minWidth: 0 }}
           >
-            {/* Heading above the white card, on beige background */}
-            <div style={{ paddingLeft: '6.5rem', marginBottom: '1.25rem' }}>
-              <h2 className="bebas" style={{
-                color: 'var(--navy)', fontSize: 'clamp(1.8rem, 2.8vw, 2.5rem)',
-                letterSpacing: '0.04em', lineHeight: 1, marginBottom: '0.55rem',
-              }}>LET'S START A CONVERSATION</h2>
-              <div style={{ width: 48, height: 3, background: 'var(--orange)' }} />
-            </div>
-
             {/* White form card */}
             {sent ? (
               <div style={{
                 flex: 1, background: 'white', border: '1px solid var(--gray-light)',
-                borderRadius: '12px', padding: '3rem 2.5rem 3rem 6.5rem',
+                borderRadius: '12px', padding: isMobile ? '2rem 1.5rem' : '3rem 2.5rem 3rem 6.5rem',
                 textAlign: 'center', display: 'flex', flexDirection: 'column',
                 alignItems: 'center', justifyContent: 'center',
               }}>
@@ -170,15 +172,15 @@ function ContactPage() {
                 onSubmit={submit}
                 style={{
                   flex: 1, background: 'white', border: '1px solid var(--gray-light)',
-                  borderRadius: '12px', padding: '2.5rem 2.5rem 2.5rem 6.5rem',
+                  borderRadius: '12px', padding: isMobile ? '1.5rem' : '2.5rem 2.5rem 2.5rem 6.5rem',
                   display: 'flex', flexDirection: 'column', gap: '1rem',
                 }}
               >
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem' }}>
                   <input style={INP} type="text" placeholder="Full Name *" value={form.name} onChange={e => set('name', e.target.value)} required onFocus={FOCUS} onBlur={BLUR} />
                   <input style={INP} type="tel" placeholder="Phone Number *" value={form.phone} onChange={e => set('phone', e.target.value)} required onFocus={FOCUS} onBlur={BLUR} />
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem' }}>
                   <input style={INP} type="email" placeholder="Email Address *" value={form.email} onChange={e => set('email', e.target.value)} required onFocus={FOCUS} onBlur={BLUR} />
                   <input style={INP} type="text" placeholder="City / State" value={form.city} onChange={e => set('city', e.target.value)} onFocus={FOCUS} onBlur={BLUR} />
                 </div>
@@ -197,7 +199,7 @@ function ContactPage() {
         </div>
 
         {/* ── Bottom 4-column contact cards ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(4,1fr)', gap: '1.25rem' }}>
           {CONTACT_CARDS.map(({ href, target, icon, title, detail, sub }, i) => {
             const inner = (
               <>

@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Check, ArrowRight, Award, Layers, Users } from 'lucide-react';
 import { SOLUTION_CATS } from './data.jsx';
-import { useScrollObserver } from './shared.jsx';
+import { useScrollObserver, useIsMobile } from './shared.jsx';
 
 // ── WordsPullUp: each word slides up from behind its clip ─────────────────────
 function WordsPullUp({ text, baseDelay = 0, style = {} }) {
@@ -278,6 +278,7 @@ const SOL_ICONS = [
 // ── ABOUT PAGE ────────────────────────────────────────────────────────────────
 function AboutPage({ navigate }) {
   const [refSols, visSols] = useScrollObserver();
+  const isMobile = useIsMobile();
 
   const FEATURES = [
     {
@@ -384,11 +385,12 @@ function AboutPage({ navigate }) {
           {/* ── Header row ── */}
           <div
             style={{
-              padding: 'clamp(1.2rem,2vw,1.8rem) clamp(2rem,4vw,3.5rem)',
+              padding: 'clamp(1.2rem,2vw,1.8rem) clamp(1.25rem,4vw,3.5rem)',
               display: 'flex',
-              alignItems: 'center',
+              alignItems: isMobile ? 'flex-start' : 'center',
               justifyContent: 'space-between',
-              gap: '2rem',
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: isMobile ? '1rem' : '2rem',
               flexShrink: 0,
             }}
           >
@@ -427,7 +429,7 @@ function AboutPage({ navigate }) {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}
+              style={{ display: isMobile ? 'none' : 'flex', alignItems: 'center', gap: '1.5rem' }}
             >
               <p
                 style={{
@@ -453,8 +455,9 @@ function AboutPage({ navigate }) {
           <div
             style={{
               flex: 1,
-              display: 'grid',
-              gridTemplateColumns: '1fr clamp(260px,32vw,420px)',
+              display: isMobile ? 'flex' : 'grid',
+              flexDirection: 'column',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr clamp(260px,32vw,420px)',
               minHeight: 0,
               overflow: 'hidden',
             }}
@@ -544,6 +547,7 @@ function AboutPage({ navigate }) {
                 borderRadius: '1rem',
                 overflow: 'hidden',
                 position: 'relative',
+                display: isMobile ? 'none' : 'block',
               }}
             >
               <img
@@ -721,7 +725,7 @@ function AboutPage({ navigate }) {
           </div>
 
           {/* 4-col cards grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '0.75rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4,1fr)', gap: '0.75rem' }}>
             <HeroImageCard />
             {FEATURES.map((f, i) => (
               <FeatureCard key={f.num} {...f} delay={0.12 + i * 0.12} />
@@ -770,7 +774,7 @@ function AboutPage({ navigate }) {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(4,1fr)',
+              gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(4,1fr)',
               gap: '1px',
               background: 'rgba(13,27,42,0.1)',
             }}
