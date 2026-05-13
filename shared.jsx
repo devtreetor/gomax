@@ -389,9 +389,7 @@ function Footer({ navigate }) {
                 Contact Us
               </a>
             </div>
-            <div style={{ ...FS.ctaPerson, height: isMobile ? '160px' : '260px' }}>
-              <img src="/Tiku call back image.png" alt="Tiku Talsania" style={FS.personImg} />
-            </div>
+
           </div>
 
         {/* ── Glass footer card ── */}
@@ -493,7 +491,7 @@ function Nav({ currentPage, navigate }) {
   const LABELS = { home:'Home', about:'About', products:'Products', contact:'Contact' };
   return (
     <>
-      <nav className={scrolled ? 'scrolled' : ''}>
+      <nav className={(scrolled || currentPage === 'contact') ? 'scrolled' : ''}>
         <div className="nav-inner">
           <a href="#" className="nav-logo" onClick={e => { e.preventDefault(); go('home'); }}>
             <img

@@ -85,7 +85,7 @@ function HeroSection({ navigate }) {
           <img
             src="/Hero.png"
             alt=""
-            style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition:'center top' }}
+            style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition: isMobile ? 'left top' : 'center top' }}
           />
           <div style={{ position:'absolute', inset:0, background:'rgba(13,27,42,0.72)' }} />
           <div style={{ position:'absolute', inset:0, backgroundImage:'radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px)', backgroundSize:'40px 40px' }} />
@@ -317,14 +317,14 @@ function SolutionsSection({ navigate }) {
         <div className={`fade-up${vis?' vis':''}`} style={{ textAlign:'center', marginBottom:'3rem' }}>
           <span className="overline">What We Solve</span>
           <h2 className={`section-h2${vis?' vis':''}`} style={{ color:'var(--navy)', fontSize:'clamp(2.8rem,5vw,5rem)', letterSpacing:'.02em', display:'block' }}>
-            The Right Solution For Every <span style={{ color:'var(--orange)' }}>Building</span> Challenge
+            The Right Solution For<br />Every <span style={{ color:'var(--orange)' }}>Building</span> Challenge
           </h2>
         </div>
 
         {/* ── Dock nav ── */}
         <div className={`fade-up${vis?' vis':''}`} style={{ 
           transitionDelay:'.1s', 
-          marginBottom: isMobile ? '7rem' : '12rem', 
+          marginBottom: isMobile ? '9rem' : '14rem', 
           display:'flex', 
           justifyContent: isMobile ? 'flex-start' : 'center',
           position:'relative',
