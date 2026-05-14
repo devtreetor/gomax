@@ -70,7 +70,6 @@ function App() {
     <div style={{ minHeight:'100vh' }}>
       <div id="page-curtain" ref={curtainRef} />
       <ScrollBar />
-      <Cursor />
       <Nav currentPage={currentPage} navigate={navigate} />
       <main key={pageKey}>
         {renderPage()}

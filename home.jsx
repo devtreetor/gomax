@@ -242,8 +242,8 @@ function SolutionProductCard({ p, onClick, animClass, animDelay }) {
         transition={{ type: 'spring', stiffness: 300, damping: 15 }}
         style={{
           position:'absolute',
-          top:'-45%', left:'5%', right:'5%',
-          height:'125%',
+          top: animClass.includes('mobile') ? '-25%' : '-45%', left:'5%', right:'5%',
+          height: animClass.includes('mobile') ? '105%' : '125%',
           display:'flex', alignItems:'center', justifyContent:'center',
           zIndex:2,
           pointerEvents:'none',
@@ -316,7 +316,7 @@ function SolutionsSection({ navigate }) {
         {/* ── Header: eyebrow + headline ── */}
         <div className={`fade-up${vis?' vis':''}`} style={{ textAlign:'center', marginBottom:'3rem' }}>
           <span className="overline">What We Solve</span>
-          <h2 className={`section-h2${vis?' vis':''}`} style={{ color:'var(--navy)', fontSize:'clamp(2.8rem,5vw,5rem)', letterSpacing:'.02em', display:'block' }}>
+          <h2 className={`section-h2${vis?' vis':''}`} style={{ color:'var(--navy)', fontSize: isMobile ? 'clamp(1.8rem, 6vw, 2.2rem)' : 'clamp(2.8rem,5vw,5rem)', letterSpacing:'.02em', display:'block' }}>
             The Right Solution For<br />Every <span style={{ color:'var(--orange)' }}>Building</span> Challenge
           </h2>
         </div>
@@ -324,22 +324,18 @@ function SolutionsSection({ navigate }) {
         {/* ── Dock nav ── */}
         <div className={`fade-up${vis?' vis':''}`} style={{ 
           transitionDelay:'.1s', 
-          marginBottom: isMobile ? '9rem' : '14rem', 
+          marginBottom: isMobile ? '15rem' : '14rem', 
           display:'flex', 
-          justifyContent: isMobile ? 'flex-start' : 'center',
+          justifyContent: 'center',
           position:'relative',
           zIndex:10,
-          overflowX: isMobile ? 'auto' : 'visible',
-          paddingBottom: isMobile ? '1rem' : '0',
-          WebkitOverflowScrolling: 'touch',
-          scrollbarWidth: 'none',
         }}>
           <nav style={{
-            display:'inline-flex', alignItems:'stretch', gap:'0', padding:'5px',
+            display:'inline-flex', flexWrap: isMobile ? 'wrap' : 'nowrap', justifyContent: 'center', alignItems:'stretch', gap: isMobile ? '8px' : '0', padding:'5px',
             borderRadius:'16px', background:'white',
             border:'1px solid rgba(13,27,42,.08)',
             boxShadow:'0 20px 50px -15px rgba(13,27,42,.22)',
-            width:'fit-content', margin: isMobile ? '0 1.5rem' : '0 auto',
+            width:'fit-content', margin: isMobile ? '0 1rem' : '0 auto',
             flexShrink: 0,
           }}>
             {SOLVE_CATS.map((c, i) => {
@@ -375,7 +371,8 @@ function SolutionsSection({ navigate }) {
               onClick={() => setCardStart(s => Math.max(0, s - 1))}
               disabled={!canPrev}
               style={{
-                flexShrink:0, width:'52px', height:'52px', borderRadius:'50%',
+                ...(isMobile ? { position: 'absolute', left: '-10px', zIndex: 10, width: '44px', height: '44px' } : { flexShrink:0, width:'52px', height:'52px' }),
+                borderRadius:'50%',
                 background:'white', border:'1px solid rgba(13,27,42,.12)',
                 boxShadow:'0 4px 16px rgba(13,27,42,.1)',
                 display:'flex', alignItems:'center', justifyContent:'center',
@@ -405,7 +402,8 @@ function SolutionsSection({ navigate }) {
               onClick={() => setCardStart(s => Math.min(catProds.length - CARDS_VISIBLE, s + 1))}
               disabled={!canNext}
               style={{
-                flexShrink:0, width:'52px', height:'52px', borderRadius:'50%',
+                ...(isMobile ? { position: 'absolute', right: '-10px', zIndex: 10, width: '44px', height: '44px' } : { flexShrink:0, width:'52px', height:'52px' }),
+                borderRadius:'50%',
                 background:'white', border:'1px solid rgba(13,27,42,.12)',
                 boxShadow:'0 4px 16px rgba(13,27,42,.1)',
                 display:'flex', alignItems:'center', justifyContent:'center',
