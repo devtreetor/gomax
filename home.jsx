@@ -112,7 +112,7 @@ function HeroSection({ navigate }) {
               playsInline
               style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
             >
-              <source src="/Hero video.mp4" type="video/mp4" />
+              <source src="/hero-video-trim.mp4" type="video/mp4" />
             </video>
             {/* Overlay — lightens as card expands */}
             <div style={{ position:'absolute', inset:0, background:`rgba(13,27,42,${Math.max(0.05, 0.55 - prog * 0.5)})` }} />
