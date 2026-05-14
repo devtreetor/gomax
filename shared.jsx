@@ -358,6 +358,108 @@ const FS = {
   social:     { color:'white', opacity:0.7, transition:'opacity 0.2s', lineHeight:0 },
 };
 
+function FooterLinks({ isMobile, navigate, hover, unhover }) {
+  const [openSection, setOpenSection] = useState(null);
+  const toggle = (section) => setOpenSection(prev => prev === section ? null : section);
+
+  const chevron = (section) => (
+    <svg
+      width="14" height="14" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+      style={{
+        transition: 'transform 0.3s ease',
+        transform: openSection === section ? 'rotate(180deg)' : 'rotate(0deg)',
+        flexShrink: 0,
+      }}
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+
+  return (
+    <div style={{ ...FS.linksGrid, gridTemplateColumns: isMobile ? '1fr' : FS.linksGrid.gridTemplateColumns, gap: isMobile ? '0' : '2rem' }}>
+      {/* Products */}
+      <div style={ isMobile ? { borderBottom: '1px solid rgba(255,255,255,0.1)' } : {}}>
+        <span
+          style={{
+            ...FS.colHead,
+            ...(isMobile ? {
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              cursor: 'pointer', padding: '1rem 0', marginBottom: 0,
+            } : {}),
+          }}
+          onClick={isMobile ? () => toggle('products') : undefined}
+        >
+          Products
+          {isMobile && chevron('products')}
+        </span>
+        <div style={{
+          overflow: 'hidden',
+          maxHeight: isMobile ? (openSection === 'products' ? '500px' : '0') : 'none',
+          transition: isMobile ? 'max-height 0.35s ease' : 'none',
+          ...(isMobile ? { paddingBottom: openSection === 'products' ? '0.75rem' : '0' } : {}),
+        }}>
+          {PRODUCTS.map(p => (
+            <a key={p.id} href="#" style={FS.link}
+              onClick={e => { e.preventDefault(); navigate && navigate('product-detail', p); }}
+              onMouseOver={hover} onMouseOut={unhover}>
+              {p.name}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Company */}
+      <div style={ isMobile ? { borderBottom: '1px solid rgba(255,255,255,0.1)' } : {}}>
+        <span
+          style={{
+            ...FS.colHead,
+            ...(isMobile ? {
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              cursor: 'pointer', padding: '1rem 0', marginBottom: 0,
+            } : {}),
+          }}
+          onClick={isMobile ? () => toggle('company') : undefined}
+        >
+          Company
+          {isMobile && chevron('company')}
+        </span>
+        <div style={{
+          overflow: 'hidden',
+          maxHeight: isMobile ? (openSection === 'company' ? '500px' : '0') : 'none',
+          transition: isMobile ? 'max-height 0.35s ease' : 'none',
+          ...(isMobile ? { paddingBottom: openSection === 'company' ? '0.75rem' : '0' } : {}),
+        }}>
+          {[['home','Home'],['about','About Us'],['products','Products'],['contact','Contact']].map(([pg, label]) => (
+            <a key={pg} href="#" style={FS.link}
+              onClick={e => { e.preventDefault(); navigate && navigate(pg); }}
+              onMouseOver={hover} onMouseOut={unhover}>
+              {label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Contact — always visible, no accordion */}
+      <div>
+        <span style={FS.colHead}>Contact</span>
+        <a href="tel:+919215844410" style={FS.contactRow} onMouseOver={hover} onMouseOut={unhover}>
+          <Phone size={13} style={{ flexShrink:0, marginTop:'1px' }} />
+          +91 92158 44410
+        </a>
+        <a href="mailto:info@gomaxindustries.com" style={FS.contactRow} onMouseOver={hover} onMouseOut={unhover}>
+          <Mail size={13} style={{ flexShrink:0, marginTop:'1px' }} />
+          info@gomaxindustries.com
+        </a>
+        <span style={FS.contactRow}>
+          <MapPin size={13} style={{ flexShrink:0, marginTop:'1px' }} />
+          Vijay Nagar, Dyal Singh Colony,<br />Karnal, Haryana 132001
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function Footer({ navigate }) {
   const isMobile = useIsMobile();
   const hover = e => { e.currentTarget.style.color = 'white'; };
@@ -410,43 +512,7 @@ function Footer({ navigate }) {
                 </p>
               </div>
 
-              <div style={{ ...FS.linksGrid, gridTemplateColumns: isMobile ? '1fr 1fr' : FS.linksGrid.gridTemplateColumns, gap: isMobile ? '1.5rem' : '2rem' }}>
-                <div>
-                  <span style={FS.colHead}>Products</span>
-                  {PRODUCTS.map(p => (
-                    <a key={p.id} href="#" style={FS.link}
-                      onClick={e => { e.preventDefault(); navigate && navigate('product-detail', p); }}
-                      onMouseOver={hover} onMouseOut={unhover}>
-                      {p.name}
-                    </a>
-                  ))}
-                </div>
-                <div>
-                  <span style={FS.colHead}>Company</span>
-                  {[['home','Home'],['about','About Us'],['products','Products'],['contact','Contact']].map(([pg, label]) => (
-                    <a key={pg} href="#" style={FS.link}
-                      onClick={e => { e.preventDefault(); navigate && navigate(pg); }}
-                      onMouseOver={hover} onMouseOut={unhover}>
-                      {label}
-                    </a>
-                  ))}
-                </div>
-                <div>
-                  <span style={FS.colHead}>Contact</span>
-                  <a href="tel:+919215844410" style={FS.contactRow} onMouseOver={hover} onMouseOut={unhover}>
-                    <Phone size={13} style={{ flexShrink:0, marginTop:'1px' }} />
-                    +91 92158 44410
-                  </a>
-                  <a href="mailto:info@gomaxindustries.com" style={FS.contactRow} onMouseOver={hover} onMouseOut={unhover}>
-                    <Mail size={13} style={{ flexShrink:0, marginTop:'1px' }} />
-                    info@gomaxindustries.com
-                  </a>
-                  <span style={FS.contactRow}>
-                    <MapPin size={13} style={{ flexShrink:0, marginTop:'1px' }} />
-                    Vijay Nagar, Dyal Singh Colony,<br />Karnal, Haryana 132001
-                  </span>
-                </div>
-              </div>
+              <FooterLinks isMobile={isMobile} navigate={navigate} hover={hover} unhover={unhover} />
             </div>
 
             {/* Bottom bar */}
