@@ -158,10 +158,22 @@ nav.scrolled { background: rgba(13,27,42,.85); backdrop-filter: blur(20px); -web
 .product-card:hover .pc-specs-overlay { transform: translateY(0); }
 
 @media (max-width: 600px) {
-  .pc-top { flex-direction: column; min-height: auto; padding: 0; }
-  .pc-image { flex: none; width: 60%; margin: -2rem auto 0; }
-  .pc-image img { max-height: 200px; }
-  .pc-header { margin: 1rem; margin-right: 1rem; flex: none; padding: 2rem 1.5rem; }
+  .pc-top { flex-direction: column; min-height: auto; padding: 0; align-items: stretch; }
+  .pc-top-bg { top: 3.5rem; border-radius: 1.5rem 1.5rem 0 0; }
+  .pc-image { flex: none; width: 55%; margin: -2rem auto 0; z-index: 3; display: flex; justify-content: center; }
+  .pc-image img { max-height: 160px; filter: drop-shadow(0 16px 24px rgba(0,0,0,0.18)); }
+  .pc-header { margin: 0; flex: none; padding: 1.5rem 1.5rem 0.5rem; align-items: center; text-align: center; }
+  .pc-name { font-size: 1.5rem; }
+  .pc-body { padding: 0.5rem 1.5rem 1.5rem; text-align: center; }
+  .pc-desc { 
+    display: -webkit-box; 
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+    margin-bottom: 1.25rem; 
+    font-size: 0.85rem;
+  }
+  .pc-chips { justify-content: center; margin-bottom: 1.25rem; }
 }
 /* ── SERVE CARDS ───────────────────────── */
 .serve-card { border: 1px solid var(--gray-light); padding: 2.5rem 2rem; transition: border-color .3s, box-shadow .3s; background: white; }
@@ -314,6 +326,7 @@ nav.scrolled { background: rgba(13,27,42,.85); backdrop-filter: blur(20px); -web
   .products-page-wrap { overflow-x: hidden; max-width: 100vw; }
   .filter-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding-bottom: 0.5rem; }
   .filter-tab { flex-shrink: 0; }
+  .products-grid { grid-template-columns: 1fr !important; }
 }
 /* ── CURTAIN ─────────────────────────────── */
 #page-curtain { position:fixed; top:0; left:-100%; width:100vw; height:100vh; background:var(--orange); z-index:9999; pointer-events:none; will-change:left; transition:left 0.35s cubic-bezier(0.76,0,0.24,1); }
