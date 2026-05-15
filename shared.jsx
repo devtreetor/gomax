@@ -279,12 +279,14 @@ function ProductCard({ p, onClick }) {
           background:`radial-gradient(circle 200px at ${spot.x}% ${spot.y}%, rgba(232,82,26,0.08) 0%, transparent 70%)`,
         }} />
       )}
-      <div className="pc-image" style={{ position:'relative', zIndex:2 }}>
-        <img src={p.image} alt={p.name} />
-      </div>
-      <div className="pc-header" style={{ position:'relative', zIndex:2 }}>
-        {p.en !== '—' && <div className="pc-en-code">EN {p.en}</div>}
-        <div className="pc-name bebas">{p.name}</div>
+      <div className="pc-top">
+        <div className="pc-image">
+          <img src={p.image} alt={p.name} />
+        </div>
+        <div className="pc-header">
+          {p.en !== '—' && <div className="pc-en-code">EN {p.en}</div>}
+          <div className="pc-name bebas">{p.name}</div>
+        </div>
       </div>
       <div className="pc-body" style={{ position:'relative', zIndex:2 }}>
         <p className="pc-desc">{p.desc}</p>

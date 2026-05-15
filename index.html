@@ -135,24 +135,33 @@ nav.scrolled { background: rgba(13,27,42,.85); backdrop-filter: blur(20px); -web
 .std-code { font-family: var(--font-mono); color: var(--orange); font-size: .75rem; font-weight: 500; }
 .std-desc { font-family: var(--font-mono); color: rgba(255,255,255,.45); font-size: .68rem; margin-top: 3px; }
 /* ── PRODUCT CARDS ─────────────────────── */
-.product-card { background: white; border: 1px solid var(--gray-light); overflow: hidden; transition: transform .25s, box-shadow .25s; position: relative; cursor: pointer; display: flex; flex-direction: column; height: 100%; }
-.product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(13,27,42,.12); }
-.pc-image { height: 220px; background: #f5f3ef; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 1.5rem; flex-shrink: 0; }
-.pc-image img { width: 100%; height: 100%; object-fit: contain; transition: transform .5s; }
-.product-card:hover .pc-image img { transform: scale(1.05); }
-.pc-header { background: var(--navy); padding: 1.25rem 1.5rem; }
-.pc-en-code { font-family: var(--font-mono); font-size: .68rem; color: var(--orange); letter-spacing: .08em; margin-bottom: .4rem; }
-.pc-name { font-family: var(--font-display); font-size: 1.4rem; color: white; letter-spacing: .03em; line-height: 1; }
-.pc-body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
-.pc-desc { font-size: .85rem; color: var(--gray); line-height: 1.6; margin-bottom: 1rem; }
-.pc-chips { display: flex; flex-wrap: wrap; gap: .375rem; margin-bottom: 1rem; flex: 1; align-content: flex-start; }
-.chip { font-family: var(--font-mono); font-size: .66rem; padding: 3px 10px; background: rgba(13,27,42,.06); color: var(--navy); letter-spacing: .03em; border-radius: 100px; }
-.pc-footer { display: flex; justify-content: space-between; align-items: center; padding-top: .875rem; border-top: 1px solid var(--gray-light); }
-.pc-cat { font-family: var(--font-mono); font-size: .68rem; color: var(--gray); }
-.pc-cta { font-size: .85rem; font-weight: 600; color: var(--orange); transition: gap .2s; display: flex; align-items: center; gap: 4px; }
-.product-card:hover .pc-cta { gap: 8px; }
-.pc-specs-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: var(--orange); color: white; padding: 1rem 1.5rem; font-family: var(--font-mono); font-size: .75rem; transform: translateY(100%); transition: transform .3s cubic-bezier(.4,0,.2,1); line-height: 1.7; }
+.product-card { background: white; border-radius: 1.5rem; overflow: hidden; transition: transform .3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease; position: relative; cursor: pointer; display: flex; flex-direction: column; height: 100%; border: 1px solid var(--gray-light); }
+.product-card:hover { transform: translateY(-8px); box-shadow: 0 32px 64px rgba(13,27,42,0.12); }
+.pc-top { background: #f7f4ef; padding: 1.75rem; display: flex; align-items: center; gap: 1rem; position: relative; min-height: 240px; }
+.pc-image { flex: 1; display: flex; align-items: center; justify-content: center; z-index: 1; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+.pc-image img { width: 100%; height: auto; max-height: 200px; object-fit: contain; filter: drop-shadow(0 12px 24px rgba(0,0,0,0.15)); }
+.product-card:hover .pc-image { transform: scale(1.08) rotate(-2deg); }
+.pc-header { flex: 1.4; background: var(--navy); padding: 2rem 1.5rem; border-radius: 1.25rem; margin-left: -1.5rem; position: relative; z-index: 2; box-shadow: 0 12px 32px rgba(13,27,42,0.25); display: flex; flex-direction: column; justify-content: center; transition: transform 0.3s ease, background 0.3s ease; }
+.product-card:hover .pc-header { transform: translateX(8px); background: #162438; }
+.pc-en-code { font-family: var(--font-mono); font-size: 0.65rem; color: var(--orange); letter-spacing: 0.12em; margin-bottom: 0.5rem; text-transform: uppercase; }
+.pc-name { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.6rem); color: white; letter-spacing: 0.04em; line-height: 1.1; text-transform: uppercase; }
+.pc-body { padding: 1.5rem 1.75rem 1.75rem; flex: 1; display: flex; flex-direction: column; }
+.pc-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 1.25rem; }
+.pc-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; flex: 1; align-content: flex-start; }
+.chip { font-family: var(--font-mono); font-size: 0.68rem; padding: 4px 12px; background: rgba(13,27,42,0.05); color: var(--navy); letter-spacing: 0.02em; border-radius: 100px; font-weight: 500; }
+.pc-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--gray-light); }
+.pc-cat { font-family: var(--font-mono); font-size: 0.72rem; color: var(--gray); opacity: 0.7; }
+.pc-cta { font-size: 0.88rem; font-weight: 700; color: var(--orange); transition: gap 0.2s; display: flex; align-items: center; gap: 6px; }
+.product-card:hover .pc-cta { gap: 10px; }
+.pc-specs-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: var(--orange); color: white; padding: 1.25rem 1.75rem; font-family: var(--font-mono); font-size: 0.75rem; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); line-height: 1.8; z-index: 5; }
 .product-card:hover .pc-specs-overlay { transform: translateY(0); }
+
+@media (max-width: 500px) {
+  .pc-top { flex-direction: column; min-height: auto; padding: 1.5rem; text-align: center; }
+  .pc-header { margin-left: 0; margin-top: -1rem; width: 100%; flex: none; padding: 1.5rem; }
+  .pc-image { width: 100%; flex: none; margin-bottom: 0.5rem; }
+  .pc-image img { max-height: 160px; }
+}
 /* ── SERVE CARDS ───────────────────────── */
 .serve-card { border: 1px solid var(--gray-light); padding: 2.5rem 2rem; transition: border-color .3s, box-shadow .3s; background: white; }
 .serve-card:hover { border-color: var(--orange); box-shadow: 0 12px 32px rgba(232,82,26,.08); }
