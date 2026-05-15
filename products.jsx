@@ -71,7 +71,7 @@ function ProductDetailPage({ product, navigate }) {
             <div style={{
               height: 480, display: 'flex', alignItems: 'center', justifyContent: 'center',
               background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: '4px', padding: '2rem',
+              borderRadius: '1.5rem', padding: '2rem',
             }}>
               <img
                 src={product.cutout}
@@ -88,7 +88,7 @@ function ProductDetailPage({ product, navigate }) {
               )}
               <h1 style={{ fontFamily:'var(--font-body)', fontWeight:800, fontSize:'clamp(2.5rem,5vw,4.5rem)', color:'white', letterSpacing:'-0.01em', lineHeight:1.05, marginBottom:'1.25rem', textTransform:'uppercase' }}>{product.name}</h1>
               <p style={{ color:'rgba(255,255,255,0.65)', lineHeight:1.75, marginBottom:'2rem', fontSize:'0.95rem' }}>{product.fullDesc}</p>
-              <div style={{ border:'1px solid rgba(255,255,255,0.1)', marginBottom:'2rem' }}>
+              <div style={{ border:'1px solid rgba(255,255,255,0.1)', marginBottom:'2rem', borderRadius:'1rem', overflow:'hidden' }}>
                 {Object.entries(product.specs).map(([k,v]) => (
                   <div key={k} style={{ display:'flex', borderBottom:'1px solid rgba(255,255,255,0.07)', padding:'0.75rem 1rem' }}>
                     <span className="mono" style={{ fontSize:'0.72rem', color:'rgba(255,255,255,0.4)', width:140, flexShrink:0, textTransform:'capitalize' }}>{k.replace(/([A-Z])/g,' $1').trim()}</span>
@@ -117,7 +117,7 @@ function ProductDetailPage({ product, navigate }) {
               <div style={{ display:'flex', flexDirection:'column', gap:'0.75rem' }}>
                 {product.features.map((f,i) => (
                   <div key={i} style={{ display:'flex', gap:'0.75rem', alignItems:'flex-start' }}>
-                    <div style={{ width:20, height:20, background:'rgba(232,82,26,0.1)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:'2px' }}>
+                    <div style={{ width:20, height:20, background:'rgba(232,82,26,0.1)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:'2px', borderRadius:'6px' }}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
                     <span style={{ fontSize:'0.9rem', color:'var(--charcoal)', lineHeight:1.6 }}>{f}</span>
@@ -130,7 +130,7 @@ function ProductDetailPage({ product, navigate }) {
               <h3 style={{ fontWeight:700, color:'var(--navy)', fontSize:'1.35rem', marginBottom:'1.5rem' }}>Where to Use</h3>
               <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
                 {product.zones.map(z => (
-                  <div key={z} style={{ border:'1px solid var(--gray-light)', padding:'1.25rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'0.75rem', textAlign:'center', background:'white' }}>
+                  <div key={z} style={{ border:'1px solid var(--gray-light)', padding:'1.25rem', display:'flex', flexDirection:'column', alignItems:'center', gap:'0.75rem', textAlign:'center', background:'white', borderRadius:'1rem' }}>
                     <span style={{ color:'var(--orange)' }}>{ZONE_ICONS[z]}</span>
                     <span style={{ fontWeight:600, fontSize:'0.85rem', color:'var(--navy)' }}>{ZONE_LABELS[z]}</span>
                   </div>
