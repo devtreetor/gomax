@@ -23,7 +23,7 @@ function ProductsPage({ navigate }) {
               <button key={v} className={`filter-tab${filter===v?' active':''}`} onClick={() => setFilter(v)}>{l}</button>
             ))}
           </div>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:'1.25rem' }}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:'3rem 1.5rem', paddingTop:'5rem' }}>
             {filtered.map((p, i) => (
               <div key={p.id} className={`fade-up${vis?' vis':''}`} style={{ transitionDelay:`${i*0.07}s` }}>
                 <ProductCard p={p} onClick={() => navigate('product-detail', p)} />
@@ -142,7 +142,7 @@ function ProductDetailPage({ product, navigate }) {
           <div style={{ marginTop:'4rem' }}>
             <span className="overline">Also Consider</span>
             <h3 style={{ fontWeight:700, color:'var(--navy)', fontSize:'1.35rem', marginBottom:'2rem' }}>Related Products</h3>
-            <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:'1.5rem', alignItems:'stretch' }}>
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(2,1fr)', gap:'3rem 1.5rem', alignItems:'stretch', paddingTop:'5rem' }}>
               {allRelated.map(p => (
                 <ProductCard key={p.id} p={p} onClick={() => navigate('product-detail', p)} />
               ))}

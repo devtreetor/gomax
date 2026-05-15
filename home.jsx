@@ -612,7 +612,7 @@ function ProductsPreviewSection({ navigate }) {
           </div>
           <button className={`btn btn-ghost-navy fade-up${vis?' vis':''}`} style={{ transitionDelay:'0.2s' }} onClick={() => navigate('products')}>View All 8 Products →</button>
         </div>
-        <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap:'1.5rem' }}>
+        <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap:'3rem 1.5rem', paddingTop:'5rem' }}>
           {preview.map((p,i) => (
             <div key={p.id} className={`fade-up${vis?' vis':''}`} style={{ transitionDelay:`${i*0.08}s` }}>
               <ProductCard p={p} onClick={() => navigate('product-detail', p)} />

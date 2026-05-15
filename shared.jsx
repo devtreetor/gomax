@@ -280,8 +280,9 @@ function ProductCard({ p, onClick }) {
         }} />
       )}
       <div className="pc-top">
+        <div className="pc-top-bg" />
         <div className="pc-image">
-          <img src={p.image} alt={p.name} />
+          <img src={p.cutout || p.image} alt={p.name} />
         </div>
         <div className="pc-header">
           {p.en !== '—' && <div className="pc-en-code">EN {p.en}</div>}
