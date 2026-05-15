@@ -551,7 +551,7 @@ function AboutPage({ navigate }) {
               }}
             >
               <img
-                src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=900&q=85"
+                src="/about-img.png"
                 alt="GoMax manufacturing facility"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
               />
