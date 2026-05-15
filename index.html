@@ -249,7 +249,7 @@ nav.scrolled { background: rgba(13,27,42,.85); backdrop-filter: blur(20px); -web
 .gallery-item:hover .gallery-overlay { transform: translateY(0); }
 .gallery-label { font-weight: 600; color: white; font-size: .875rem; }
 /* ── FILTER TABS ───────────────────────── */
-.filter-tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin: 2rem 0; }
+.filter-tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin: 2rem 0; max-width: 100%; }
 .filter-tab { padding: 8px 20px; border: 1.5px solid var(--gray-light); background: transparent; font-family: var(--font-body); font-weight: 500; font-size: .85rem; color: var(--gray); cursor: pointer; transition: all .2s; }
 .filter-tab:hover { border-color: var(--navy); color: var(--navy); }
 .filter-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
@@ -308,6 +308,12 @@ nav.scrolled { background: rgba(13,27,42,.85); backdrop-filter: blur(20px); -web
 @media (max-width: 480px) {
   .gallery-grid { columns: 1; }
   [style*="grid-template-columns: repeat(2,1fr)"] { grid-template-columns: 1fr !important; }
+}
+/* ── PRODUCTS PAGE MOBILE OVERFLOW FIX ────── */
+@media (max-width: 768px) {
+  .products-page-wrap { overflow-x: hidden; max-width: 100vw; }
+  .filter-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding-bottom: 0.5rem; }
+  .filter-tab { flex-shrink: 0; }
 }
 /* ── CURTAIN ─────────────────────────────── */
 #page-curtain { position:fixed; top:0; left:-100%; width:100vw; height:100vh; background:var(--orange); z-index:9999; pointer-events:none; will-change:left; transition:left 0.35s cubic-bezier(0.76,0,0.24,1); }

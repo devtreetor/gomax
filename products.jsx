@@ -10,7 +10,7 @@ function ProductsPage({ navigate }) {
   const filtered = filter === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === filter);
 
   return (
-    <div>
+    <div className="products-page-wrap">
       <PageHero title="Our Product Range" sub="9 Premium Construction Chemicals" image="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80" page="products" />
       <section style={{ background:'var(--bg)', padding:'5rem 0' }}>
         <div className="section-wrap" ref={ref}>
