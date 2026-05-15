@@ -83,9 +83,9 @@ function HeroSection({ navigate }) {
         {/* Background person image — fades out as card expands */}
         <div style={{ position:'absolute', inset:0, zIndex:0, opacity:bgAlpha }}>
           <img
-            src="/Hero.png"
+            src={isMobile ? "/hero-mobile.jpeg" : "/Hero.png"}
             alt=""
-            style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition: isMobile ? 'left top' : 'center top' }}
+            style={{ width:'100%', height:'100%', objectFit:'cover', objectPosition: isMobile ? 'center center' : 'center top' }}
           />
           <div style={{ position:'absolute', inset:0, background:'rgba(13,27,42,0.72)' }} />
           <div style={{ position:'absolute', inset:0, backgroundImage:'radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px)', backgroundSize:'40px 40px' }} />
