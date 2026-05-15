@@ -289,7 +289,7 @@ function ProductCard({ p, onClick }) {
           <div className="pc-name bebas">{p.name}</div>
         </div>
       </div>
-      <div className="pc-body" style={{ position:'relative', zIndex:2 }}>
+      <div className="pc-body" style={{ position:'relative', zIndex:2, overflow:'hidden' }}>
         <p className="pc-desc">{p.desc}</p>
         <div className="pc-chips">
           {p.chips.map(c => <span key={c} className="chip">{c}</span>)}
@@ -298,15 +298,15 @@ function ProductCard({ p, onClick }) {
           <span className="pc-cat mono">{p.catLabel}</span>
           <span className="pc-cta">View Details <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
+        {p.en !== '—' && (
+          <div className="pc-specs-overlay">
+            <div style={{ fontWeight:600, marginBottom:'0.4rem', letterSpacing:'0.08em', fontSize:'0.7rem' }}>TECHNICAL SPECS</div>
+            <div>Standard: {p.specs.standard}</div>
+            <div>Coverage: {p.specs.coverage}</div>
+            <div>Open Time: {p.specs.settingTime}</div>
+          </div>
+        )}
       </div>
-      {p.en !== '—' && (
-        <div className="pc-specs-overlay" style={{ position:'relative', zIndex:2 }}>
-          <div style={{ fontWeight:600, marginBottom:'0.4rem', letterSpacing:'0.08em', fontSize:'0.7rem' }}>TECHNICAL SPECS</div>
-          <div>Standard: {p.specs.standard}</div>
-          <div>Coverage: {p.specs.coverage}</div>
-          <div>Open Time: {p.specs.settingTime}</div>
-        </div>
-      )}
     </div>
   );
 }
